@@ -1,0 +1,92 @@
+﻿@model IEnumerable<AdoptiiAnimaleApp.Models.AnimaleModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Animalele date spre adoptie</h1>
+<br />
+<br />
+@if (User.IsInRole("Admin")){
+<p>
+        <button onclick="location.href='@Url.Action("Create")'" class="btn btn-success">Create New</button>
+</p>
+}
+<table class="table">
+    <thead>
+        <tr>
+            @if (User.IsInRole("Admin")){
+            <th>
+                @Html.DisplayNameFor(model => model.IdAnimal)
+            </th>
+            }
+            <th>
+                @Html.DisplayNameFor(model => model.Nume)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Specie)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rasa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Varsta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gen)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descriere)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Poza)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            @if (User.IsInRole("Admin")){
+                <td>
+                 @Html.DisplayFor(modelItem => item.IdAnimal)
+                </td>
+             }
+            <td>
+                @Html.DisplayFor(modelItem => item.Nume)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Specie)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rasa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Varsta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gen)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descriere)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Poza)
+            </td>
+            <td>
+                    <button onclick="location.href='@Url.Action("Details", new { id = item.IdAnimal })'" class="btn btn-primary">Details</button>
+
+                    @if (User.IsInRole("Admin"))
+                {
+                        <button onclick="location.href='@Url.Action("Edit", new { id = item.IdAnimal })'" class="btn btn-warning">Edit</button>
+                        <button onclick="location.href='@Url.Action("Delete", new { id = item.IdAnimal })'" class="btn btn-danger">Delete</button>
+                   
+                }
+              
+                   
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
